@@ -18,3 +18,124 @@
 
 # rules
 
+# inside bets
+
+# straight bet = 36:1 win
+# split bet = 17:1 win
+# street bet = 11:1 win
+# corner bet = 8:1 win
+# five number bet (0, 00, 1, 2, 3 corner bet) = 6:1 win
+# six line bet = 6:1 win
+
+# outside bets
+
+# red = 1:1 win
+# black = 1:1 win
+# even = 1:1 win
+# odd = 1:1 win
+# low bet (1-18) = 1:1 win
+# high bet (19-36) = 1:1 win
+# dozen bet = 2:1 win
+# column bet = 2:1 win
+
+
+# random number generator
+
+
+# wins determined, wheel goes again
+
+import re
+
+def start():
+    print(' --------------')
+    print('/   0   |  00  \\')
+    print('----------------')
+    print('| 1  | 2  | 3  |')
+    print('----------------')
+    print('| 4  | 5  | 6  |')
+    print('----------------')
+    print('| 7  | 8  | 9  |')
+    print('----------------')
+    print('| 10 | 11 | 12 |')
+    print('----------------')
+    print('| 13 | 14 | 15 |')
+    print('----------------')
+    print('| 16 | 17 | 18 |')
+    print('----------------')
+    print('| 19 | 20 | 21 |')
+    print('----------------')
+    print('| 22 | 23 | 24 |')
+    print('----------------')
+    print('| 25 | 26 | 27 |')
+    print('----------------')
+    print('| 28 | 29 | 30 |')
+    print('----------------')
+    print('| 31 | 32 | 33 |')
+    print('----------------')
+    print('| 34 | 35 | 36 |')
+    print('----------------')
+    print("\nWelcome to Roulette!, the rules are simple, guess the number \
+and you win! There are several bets you can make, there are \
+straight bets, which is one number, split bets, which is between \
+two adjacent numbers, street bets, which is between three adjacent \
+numbers, corner bets, which are between four adjacent numbers, \
+the lucky five-number bet, which is only 00, 0, 1, 2, and 3, a six \
+number bet, which is any row of six numbers, and if you don't want to \
+risk it all, you can make safer bets with black, red, even odd, the numbers \
+1-18, or 19-36, which dozen will win, and which column will win.\n")
+    buy_in()
+
+def buy_in():
+    # player inputs buy in amount and is given the chips for it
+    player_money = input('How much are you buying in today?\n')
+    x = re.findall("[0-9]", player_money)
+    player_money = ''.join(x)
+    player_money = int(player_money)
+    white = 0
+    if player_money > 0:
+        white += 20
+        player_money /= 20
+        print(f'You have {white} chips worth ${player_money:0.2f}.')
+    else:
+        print("I'm sorry, you don't have enough money.")
+        exit()
+    bet_query(white)
+
+# place bets
+
+def bet_query(white):
+    empty = []
+    bet = input(f'How many chips are you betting?\n')
+    bet= int(bet)
+    white = white - bet
+    empty.append(bet)
+    bet_place(empty)
+
+def bet_place(empty):
+    bet = []
+    for element in empty:
+        if element != 0:
+            bet_placing = input("What's your bet? Inside or outside?\n")
+            bet_placing = bet_placing.lower()
+            if bet_placing == 'inside':
+                number = input("Which number(s) are you betting on?\n")
+                bet.append((number))
+            elif bet_placing == 'outside':
+                outer = input("")
+            else:
+                print("I didn't quite get that. Please try again.")
+                bet_place(empty)
+        else:
+            cash_out: input("Would you like to cash out?\n")
+            cash_check()
+
+def inner_winnings():
+    pass
+
+def outer_winnings():
+    pass
+    
+def cash_check():
+    pass
+
+start()
