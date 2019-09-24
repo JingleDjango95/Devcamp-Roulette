@@ -47,15 +47,31 @@
 from tkinter import *
 import tkinter.messagebox
 
+global counter
+counter = 20
+
 def roulette(number):
 
     master = Tk()
     master.title('Devcamp Roulette')
+    master.geometry('500x500')
 
     topFrame = Frame(master, width=500, height=200)
     topFrame.pack(anchor=N)
 
-    button_0 = Button(topFrame, text="0", fg='green', width=2).grid(row=0)
+    buttonFrame = Frame(topFrame, width=2, height=2)
+
+    chip_value = number // 20
+
+    def clicked():
+        global counter
+        counter -= 1
+        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
+        if counter <= 0:
+            chip.config(text="You don't have any chips")
+            end_of_bets()
+
+    button_0 = Button(topFrame, text="0", fg='green', width=2, command=clicked).grid(row=0)
     button_00 = Button(topFrame, text="00", fg='green', width=2).grid(row=2)
 
     button_3 = Button(topFrame, text="3", fg='red', width=2).grid(row=0, column=1)
@@ -127,12 +143,10 @@ def roulette(number):
     borderLine = border.create_line(0, 10, 500, 10)
 
     bottomFrame = Frame(master, width=500, height=190)
+    bottomFrame.pack_propagate(0)
     bottomFrame.pack(anchor=S)
 
-    chip_count = 20
-    chip_value = number // chip_count
-
-    chip = Label(bottomFrame, text=f"You have {chip_count} chips, valued at ${chip_value:0.2f}")
+    chip = Label(bottomFrame, text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
     chip.grid(row=0, columnspan=4)
 
     tkvar1 = StringVar(master)
@@ -168,30 +182,34 @@ def roulette(number):
     six_menu.grid(row=2, column=3)
 
     def change_dropdown1(*args):
-        print(tkvar1.get())
+        split_bet = tkvar1.get()
 
     tkvar1.trace('w', change_dropdown1)
 
     def change_dropdown2(*args):
-        print(tkvar2.get())
+        steet_bet = tkvar2.get()
 
     tkvar2.trace('w', change_dropdown2)
 
     def change_dropdown3(*args):
-        print(tkvar3.get())
+        corner_bet = tkvar3.get()
 
     tkvar3.trace('w', change_dropdown3)
 
     def change_dropdown4(*args):
-        print(tkvar4.get())
+        six_bet = tkvar4.get()
 
     tkvar4.trace('w', change_dropdown4)
+
+    def end_of_bets():
+        pass
 
     master.mainloop()
 
 
 buy_in = Tk()
 buy_in.title("Buy In")
+buy_in.geometry('200x100')
 
 tkinter.messagebox.showinfo("Welcome to Roulette!",
 "Welcome to Roulette!, the rules are simple, guess the number \
