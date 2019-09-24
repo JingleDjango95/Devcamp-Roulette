@@ -46,6 +46,7 @@
 
 from tkinter import *
 import tkinter.messagebox
+from threading import Timer
 
 global counter
 counter = 20
@@ -63,6 +64,10 @@ def roulette(number):
 
     chip_value = number // 20
 
+    img = 'chip.png'
+
+    button_change_img = PhotoImage(file=img)
+
     def clicked():
         global counter
         counter -= 1
@@ -71,71 +76,124 @@ def roulette(number):
             chip.config(text="You don't have any chips")
             end_of_bets()
 
-    button_0 = Button(topFrame, text="0", fg='green', width=2, command=clicked).grid(row=0)
-    button_00 = Button(topFrame, text="00", fg='green', width=2).grid(row=2)
+    
+    button_0 = Button(topFrame, text="0", fg='green', width=2, command=clicked)
+    button_0.grid(row=0)
+    button_00 = Button(topFrame, text="00", fg='green', width=2, command=clicked)
+    button_00.grid(row=2)
 
-    button_3 = Button(topFrame, text="3", fg='red', width=2).grid(row=0, column=1)
-    button_2 = Button(topFrame, text="2", width=2).grid(row=1, column=1)
-    button_1 = Button(topFrame, text="1", fg='red', width=2).grid(row=2, column=1)
+    button_3 = Button(topFrame, text="3", fg='red', width=2, command=clicked)
+    button_3.grid(row=0, column=1)
+    button_2 = Button(topFrame, text="2", width=2, command=clicked)
+    button_2.grid(row=1, column=1)
+    button_1 = Button(topFrame, text="1", fg='red', width=2, command=clicked)
+    button_1.grid(row=2, column=1)
 
-    button_6 = Button(topFrame, text="6", width=2).grid(row=0, column=2)
-    button_5 = Button(topFrame, text="5", fg='red', width=2).grid(row=1, column=2)
-    button_4 = Button(topFrame, text="4", width=2).grid(row=2, column=2)
+    button_6 = Button(topFrame, text="6", width=2, command=clicked)
+    button_6.grid(row=0, column=2)
+    button_5 = Button(topFrame, text="5", fg='red', width=2, command=clicked)
+    button_5.grid(row=1, column=2)
+    button_4 = Button(topFrame, text="4", width=2, command=clicked)
+    button_4.grid(row=2, column=2)
 
-    button_9 = Button(topFrame, text="9", fg='red', width=2).grid(row=0, column=3)
-    button_8 = Button(topFrame, text="8", width=2).grid(row=1, column=3)
-    button_7 = Button(topFrame, text="7", fg='red', width=2).grid(row=2, column=3)
+    button_9 = Button(topFrame, text="9", fg='red', width=2, command=clicked)
+    button_9.grid(row=0, column=3)
+    button_8 = Button(topFrame, text="8", width=2, command=clicked)
+    button_8.grid(row=1, column=3)
+    button_7 = Button(topFrame, text="7", fg='red', width=2, command=clicked)
+    button_7.grid(row=2, column=3)
 
-    button_12 = Button(topFrame, text="12", fg='red').grid(row=0, column=4)
-    button_11 = Button(topFrame, text="11").grid(row=1, column=4)
-    button_10 = Button(topFrame, text="10").grid(row=2, column=4)
+    button_12 = Button(topFrame, text="12", fg='red', command=clicked)
+    button_12.grid(row=0, column=4)
+    button_11 = Button(topFrame, text="11", command=clicked)
+    button_11.grid(row=1, column=4)
+    button_10 = Button(topFrame, text="10", command=clicked)
+    button_10.grid(row=2, column=4)
 
-    button_15 = Button(topFrame, text="15").grid(row=0, column=5)
-    button_14 = Button(topFrame, text="14", fg='red').grid(row=1, column=5)
-    button_13 = Button(topFrame, text="13").grid(row=2, column=5)
+    button_15 = Button(topFrame, text="15", command=clicked)
+    button_15.grid(row=0, column=5)
+    button_14 = Button(topFrame, text="14", fg='red', command=clicked)
+    button_14.grid(row=1, column=5)
+    button_13 = Button(topFrame, text="13", command=clicked)
+    button_13.grid(row=2, column=5)
 
-    button_18 = Button(topFrame, text="18", fg='red').grid(row=0, column=6)
-    button_17 = Button(topFrame, text="17").grid(row=1, column=6)
-    button_16 = Button(topFrame, text="16", fg='red').grid(row=2, column=6)
+    button_18 = Button(topFrame, text="18", fg='red', command=clicked)
+    button_18.grid(row=0, column=6)
+    button_17 = Button(topFrame, text="17", command=clicked)
+    button_17.grid(row=1, column=6)
+    button_16 = Button(topFrame, text="16", fg='red', command=clicked)
+    button_16.grid(row=2, column=6)
 
-    button_21 = Button(topFrame, text="21", fg='red').grid(row=0, column=7)
-    button_20 = Button(topFrame, text="20").grid(row=1, column=7)
-    button_19 = Button(topFrame, text="19", fg='red').grid(row=2, column=7)
+    button_21 = Button(topFrame, text="21", fg='red', command=clicked)
+    button_21.grid(row=0, column=7)
+    button_20 = Button(topFrame, text="20", command=clicked)
+    button_20.grid(row=1, column=7)
+    button_19 = Button(topFrame, text="19", fg='red', command=clicked)
+    button_19.grid(row=2, column=7)
 
-    button_24 = Button(topFrame, text="24").grid(row=0, column=8)
-    button_23 = Button(topFrame, text="23", fg='red').grid(row=1, column=8)
-    button_22 = Button(topFrame, text="22").grid(row=2, column=8)
+    button_24 = Button(topFrame, text="24", command=clicked)
+    button_24.grid(row=0, column=8)
+    button_23 = Button(topFrame, text="23", fg='red', command=clicked)
+    button_23.grid(row=1, column=8)
+    button_22 = Button(topFrame, text="22", command=clicked)
+    button_22.grid(row=2, column=8)
 
-    button_27 = Button(topFrame, text="27", fg='red').grid(row=0, column=9)
-    button_26 = Button(topFrame, text="26").grid(row=1, column=9)
-    button_25 = Button(topFrame, text="25", fg='red').grid(row=2, column=9)
+    button_27 = Button(topFrame, text="27", fg='red', command=clicked)
+    button_27.grid(row=0, column=9)
+    button_26 = Button(topFrame, text="26", command=clicked)
+    button_26.grid(row=1, column=9)
+    button_25 = Button(topFrame, text="25", fg='red', command=clicked)
+    button_25.grid(row=2, column=9)
 
-    button_30 = Button(topFrame, text="30", fg='red').grid(row=0, column=10)
-    button_29 = Button(topFrame, text="29").grid(row=1, column=10)
-    button_28 = Button(topFrame, text="28").grid(row=2, column=10)
+    button_30 = Button(topFrame, text="30", fg='red', command=clicked)
+    button_30.grid(row=0, column=10)
+    button_29 = Button(topFrame, text="29", command=clicked)
+    button_29.grid(row=1, column=10)
+    button_28 = Button(topFrame, text="28", command=clicked)
+    button_28.grid(row=2, column=10)
 
-    button_33 = Button(topFrame, text="33").grid(row=0, column=11)
-    button_32 = Button(topFrame, text="32", fg='red').grid(row=1, column=11)
-    button_31 = Button(topFrame, text="31").grid(row=2, column=11)
+    button_33 = Button(topFrame, text="33", command=clicked)
+    button_33.grid(row=0, column=11)
+    button_32 = Button(topFrame, text="32", fg='red', command=clicked)
+    button_32.grid(row=1, column=11)
+    button_31 = Button(topFrame, text="31", command=clicked)
+    button_31.grid(row=2, column=11)
 
-    button_36 = Button(topFrame, text="36", fg='red').grid(row=0, column=12)
-    button_35 = Button(topFrame, text="35").grid(row=1, column=12)
-    button_34 = Button(topFrame, text="34", fg='red').grid(row=2, column=12)
+    button_36 = Button(topFrame, text="36", fg='red', command=clicked)
+    button_36.grid(row=0, column=12)
+    button_35 = Button(topFrame, text="35", command=clicked)
+    button_35.grid(row=1, column=12)
+    button_34 = Button(topFrame, text="34", fg='red', command=clicked)
+    button_34.grid(row=2, column=12)
 
-    button_c1 = Button(topFrame, text='2 to 1').grid(row=0, column=13)
-    button_c2 = Button(topFrame, text='2 to 1').grid(row=1, column=13)
-    button_c3 = Button(topFrame, text='2 to 1').grid(row=2, column=13)
+    button_c1 = Button(topFrame, text='2 to 1', command=clicked)
+    button_c1.grid(row=0, column=13)
+    button_c2 = Button(topFrame, text='2 to 1', command=clicked)
+    button_c2.grid(row=1, column=13)
+    button_c3 = Button(topFrame, text='2 to 1', command=clicked)
+    button_c3.grid(row=2, column=13)
 
-    button_first12 = Button(topFrame, text='1st 12', width=12).grid(row=3, column=1, columnspan=4)
-    button_second12 = Button(topFrame, text='2nd 12', width=12).grid(row=3, column=5, columnspan=4)
-    button_third12 = Button(topFrame, text='3rd 12', width=12).grid(row=3, column=9, columnspan=4)
+    button_first12 = Button(topFrame, text='1st 12', width=12, command=clicked)
+    button_first12.grid(row=3, column=1, columnspan=4)
+    button_second12 = Button(topFrame, text='2nd 12', width=12, command=clicked)
+    button_second12.grid(row=3, column=5, columnspan=4)
+    button_third12 = Button(topFrame, text='3rd 12', width=12, command=clicked)
+    button_third12.grid(row=3, column=9, columnspan=4)
 
-    button_first18 = Button(topFrame, text='1 to 18', width=6).grid(row=4, column=1, columnspan=2)
-    button_even = Button(topFrame, text='EVEN', width=6).grid(row=4, column=3, columnspan=2)
-    button_red = Button(topFrame, text='RED', width=6, fg='red').grid(row=4, column=5, columnspan=2)
-    button_black = Button(topFrame, text='BLACK', width=6).grid(row=4, column=7, columnspan=2)
-    button_odd = Button(topFrame, text='ODD', width=6).grid(row=4, column=9, columnspan=2)
-    button_last18 = Button(topFrame, text='19 to 36', width=6).grid(row=4, column=11, columnspan=2)
+    button_first18 = Button(topFrame, text='1 to 18', width=6, command=clicked)
+    button_first18.grid(row=4, column=1, columnspan=2)
+    button_even = Button(topFrame, text='EVEN', width=6, command=clicked)
+    button_even.grid(row=4, column=3, columnspan=2)
+    button_red = Button(topFrame, text='RED', width=6, fg='red', command=clicked)
+    button_red.grid(row=4, column=5, columnspan=2)
+    button_black = Button(topFrame, text='BLACK', width=6, command=clicked)
+    button_black.grid(row=4, column=7, columnspan=2)
+    button_odd = Button(topFrame, text='ODD', width=6, command=clicked)
+    button_odd.grid(row=4, column=9, columnspan=2)
+    button_last18 = Button(topFrame, text='19 to 36', width=6, command=clicked)
+    button_last18.grid(row=4, column=11, columnspan=2)
+    
+    buttons = [button_0, button_00, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10, button_11, button_12, button_13, button_14, button_15, button_16, button_17, button_18, button_19, button_20, button_21, button_22, button_23, button_24, button_25, button_26, button_27, button_28, button_29, button_30, button_31, button_32, button_33, button_34, button_35, button_36, button_c1, button_c2, button_c3, button_first12, button_second12, button_third12, button_first18, button_last18, button_even, button_odd, button_red, button_black]
 
     border = Canvas(master, width=500, height=10)
     border.pack(anchor=CENTER)
@@ -181,6 +239,8 @@ def roulette(number):
     Label(bottomFrame, text='Six-Number Bets').grid(row=1, column=3)
     six_menu.grid(row=2, column=3)
 
+    menus = [split_menu, street_menu, corner_menu, six_menu]
+
     def change_dropdown1(*args):
         split_bet = tkvar1.get()
 
@@ -202,8 +262,14 @@ def roulette(number):
     tkvar4.trace('w', change_dropdown4)
 
     def end_of_bets():
-        pass
+        chip.config(text="Please, no more bets")
+        for button in buttons:
+            button.config(state='disabled')
+        for menu in menus:
+            menu.config(state='disabled')
 
+    t = Timer(10.0, end_of_bets)
+    t.start()
     master.mainloop()
 
 
