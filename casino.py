@@ -95,6 +95,18 @@ def roulette(number):
     button_34 = Button(topFrame, text="34", fg='red').grid(row=0, column=12)
     button_35 = Button(topFrame, text="35").grid(row=1, column=12)
     button_36 = Button(topFrame, text="36", fg='red').grid(row=2, column=12)
+    button_c1 = Button(topFrame, text='2 to 1').grid(row=0, column=13)
+    button_c2 = Button(topFrame, text='2 to 1').grid(row=1, column=13)
+    button_c3 = Button(topFrame, text='2 to 1').grid(row=2, column=13)
+    button_first12 = Button(topFrame, text='1st 12', width=12).grid(row=3, column=1, columnspan=4)
+    button_second12 = Button(topFrame, text='2nd 12', width=12).grid(row=3, column=5, columnspan=4)
+    button_third12 = Button(topFrame, text='3rd 12', width=12).grid(row=3, column=9, columnspan=4)
+    button_first18 = Button(topFrame, text='1 to 18', width=6).grid(row=4, column=1, columnspan=2)
+    button_even = Button(topFrame, text='EVEN', width=6).grid(row=4, column=3, columnspan=2)
+    button_red = Button(topFrame, text='RED', width=6, fg='red').grid(row=4, column=5, columnspan=2)
+    button_black = Button(topFrame, text='BLACK', width=6).grid(row=4, column=7, columnspan=2)
+    button_odd = Button(topFrame, text='ODD', width=6).grid(row=4, column=9, columnspan=2)
+    button_last18 = Button(topFrame, text='19 to 36', width=6).grid(row=4, column=11, columnspan=2)
 
     master.mainloop()
 
