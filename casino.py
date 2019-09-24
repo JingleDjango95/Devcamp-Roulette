@@ -108,6 +108,8 @@ def roulette(number):
     button_odd = Button(topFrame, text='ODD', width=6).grid(row=4, column=9, columnspan=2)
     button_last18 = Button(topFrame, text='19 to 36', width=6).grid(row=4, column=11, columnspan=2)
 
+    chip_value = number // 20
+
     master.mainloop()
 
 
