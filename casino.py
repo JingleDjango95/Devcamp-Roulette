@@ -133,9 +133,59 @@ def roulette(number):
     chip_value = number // chip_count
 
     chip = Label(bottomFrame, text=f"You have {chip_count} chips, valued at ${chip_value:0.2f}")
-    chip.pack()
+    chip.grid(row=0, columnspan=4)
 
-    tkvar = StringVar(master)
+    tkvar1 = StringVar(master)
+    tkvar2 = StringVar(master)
+    tkvar3 = StringVar(master)
+    tkvar4 = StringVar(master)
+
+
+    split_choices = ['0, 00', '0, 1', '0, 2', '00, 2', '00, 3', '1, 4', '1, 2', '2, 5', '2, 3', '3, 6', '4, 7', '4, 5', '5, 8', '5, 6', '6, 9', '7, 8', '7, 10', '8, 9', '8, 11', '9, 12', '13, 14', '13, 16', '13, 14', '14, 17', '14, 15', '15, 18', '19, 22', '19, 20', '20, 23', '20, 21', '21, 24', '25, 28', '25, 26', '26, 29', '26, 27', '27, 30', '31, 34', '31, 32', '32, 35', '32, 33', '33, 36']
+    streen_choices = ['1-3', '4-6', '7-9', '10-12', '13-15', '16-18', '19-21', '22-24', '25-27', '28-30', '31-33', '34-36']
+    corner_choices = ['1, 2, 4, 5', '2, 3, 5, 6', '4, 5, 7, 8', '5, 6, 8, 9', '7, 8, 10, 11', '8, 9, 11, 12', '10, 11, 13, 14', '11, 12, 14, 15', '13, 14, 16, 17', '14, 15, 17, 18', '16, 17, 19, 20', '17, 18, 20, 21', '19, 20, 22, 23', '20, 21, 23, 24', '22, 23, 25, 26', '23, 24, 26, 27', '25, 26, 28, 29', '26, 27, 29, 30', '28, 29, 31, 32', '29, 30, 32, 33', '31, 32, 34, 35', '32, 33, 35, 36']
+    six_choices = ['1-6', '7-12', '13-18', '19-24', '25-30', '31-36']
+
+    tkvar1.set('0, 00')
+    tkvar2.set('1-3')
+    tkvar3.set('1, 2, 4, 5')
+    tkvar4.set('1-6')
+
+    split_menu = OptionMenu(bottomFrame, tkvar1, split_choices[0], *split_choices)
+    Label(bottomFrame, text='Split Bets').grid(row=1, column=0)
+    split_menu.grid(row=2, column=0)
+
+    street_menu = OptionMenu(bottomFrame, tkvar2, streen_choices[0], *streen_choices)
+    Label(bottomFrame, text='Street Bets').grid(row=1, column=1)
+    street_menu.grid(row=2, column=1)
+
+    corner_menu = OptionMenu(bottomFrame, tkvar3, corner_choices[0], *corner_choices)
+    Label(bottomFrame, text='Corner Bets').grid(row=1, column=2)
+    corner_menu.grid(row=2, column=2)
+
+    six_menu = OptionMenu(bottomFrame, tkvar4, six_choices[0], *six_choices)
+    Label(bottomFrame, text='Six-Number Bets').grid(row=1, column=3)
+    six_menu.grid(row=2, column=3)
+
+    def change_dropdown1(*args):
+        print(tkvar1.get())
+
+    tkvar1.trace('w', change_dropdown1)
+
+    def change_dropdown2(*args):
+        print(tkvar2.get())
+
+    tkvar2.trace('w', change_dropdown2)
+
+    def change_dropdown3(*args):
+        print(tkvar3.get())
+
+    tkvar3.trace('w', change_dropdown3)
+
+    def change_dropdown4(*args):
+        print(tkvar4.get())
+
+    tkvar4.trace('w', change_dropdown4)
 
     master.mainloop()
 
