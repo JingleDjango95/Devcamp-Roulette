@@ -6,17 +6,18 @@ from ast import literal_eval as make_tuple
 
 bet = []
 counter = 20
+total = 0
 
 def roulette(number):
 
     master = Tk()
     master.title('Devcamp Roulette')
-    master.geometry('500x500')
+    master.geometry('500x300')
     
     topFrame = Frame(master, width=500, height=200)
     topFrame.pack(anchor=N)
 
-    chip_value = number // 20
+    chip_value = number / 20
 
     def clicked(number):
         global bet
@@ -26,7 +27,7 @@ def roulette(number):
         chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
         if counter <= 0:
             chip.config(text="You don't have any chips")
-            end_of_bets(number)
+            
 
     
     button_0 = Button(topFrame, text="0", fg='green', width=2, command=lambda: clicked(0))
@@ -193,6 +194,11 @@ def roulette(number):
 
     menus = [split_menu, street_menu, corner_menu, six_menu]
 
+    cash_out = Button(master, text="Cash Out", command=lambda: cashOut(total, chip_value))
+    cash_out.pack(anchor=CENTER, side=RIGHT, padx=80)
+    keep_playing = Button(master, text="Keep Playing", command=lambda: keepPlaying(total, chip_value, cash_out, keep_playing))
+    keep_playing.pack(anchor=CENTER, side=LEFT, padx=80)
+
     def change_dropdown1(*args):
         global counter
         global bet
@@ -229,23 +235,45 @@ def roulette(number):
         
     tkvar4.trace('w', change_dropdown4)
 
-    def end_of_bets(number):
+    def end_of_bets(chip_value):
         chip.config(text="Please, no more bets")
         for button in buttons:
             button.config(state='disabled')
         for menu in menus:
             menu.config(state='disabled')
-        random_number(number)
+        random_number(chip_value)
 
-    def random_number(number):
+    def random_number(chip_value):
         choice = [0, '00', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
         r_number = random.choice(choice)
-        number_label = Label(master, text=f'And the number is: {r_number}')
-        number_label.pack()
-        win_query(r_number, number)
+        chip.config(text=f'And the number is: {r_number}')
+        t = Timer(2.0, lambda: win_query(r_number, chip_value))
+        t.start()
         
-    def win_query(random, number):
+    def keepPlaying(total, chip_value, cash_out, keep_playing):
         global counter
+        global bet
+        counter += total
+        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
+        bet = []
+        t = Timer(15.0, lambda: end_of_bets(chip_value))
+        for button in buttons:
+            button.config(state='normal')
+        for menu in menus:
+            menu.config(state='normal')
+        t.start()
+
+    def cashOut(total, chip_value):
+        global counter
+        counter += total
+        counter *= chip_value
+        total *= chip_value
+        chip.config(text=f"You won ${total:0.2f}. You cashed out ${counter:0.2f}. Thanks for playing!")
+        
+
+    def win_query(random, chip_value):
+        global counter
+        global total
         col1 = [3,6,9,12,15,18,21,24,27,30,33,36]
         col2 = [2,5,8,11,14,17,20,23,26,29,32,35]
         col3 = [1,4,7,10,13,16,19,22,25,28,31,34]
@@ -264,78 +292,87 @@ def roulette(number):
         six_choices = [[1,2,3,4,5,6], [7,8,9,10,11,12], [13,14,15,16,17,18], [19,20,21,22,23,24], [25,26,27,28,29,30], [31,32,33,34,35,36]]
         for item in bet:
             if item == random:
-                counter += 35
+                total += 35
             elif item == 'c1':
                 for number in col1:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == 'c2':
                 for number in col2:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == 'c3':
                 for number in col3:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == 'red':
                 for number in red:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == 'black':
                 for number in black:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == 'even':
                 for number in even:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == 'odd':
                 for number in odd:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == '1st12':
                 for number in fst12:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == '2nd12':
                 for number in sec12:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == '3rd12':
                 for number in thi12:
                     if number == random:
-                        counter += 2
+                        total += 2
             elif item == '1-18':
                 for number in fst18:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == '19-36':
                 for number in lst18:
                     if number == random:
-                        counter += 1
+                        total += 1
             elif item == '(0, 00)' or item == '(0, 1)' or item == '(0, 2)' or item == '(00, 2)' or item == '(00, 3)' or item == '(1, 4)' or item == '(1, 2)' or item == '(2, 5)' or item == '(2, 3)' or item == '(3, 6)' or item == '(4, 7)' or item == '(4, 5)' or item == '(5, 8)' or item == '(5, 6)' or item == '(6, 9)' or item == '(7, 8)' or item == '(7, 10)' or item == '(8, 9)' or item == '(8, 11)' or item == '(9, 12)' or item == '(13, 14)' or item == '(13, 16)' or item == '(13, 14)' or item == '(14, 17)' or item == '(14, 15)' or item == '(15, 18)' or item == '(19, 22)' or item == '(19, 20)' or item == '(20, 23)' or item == '(20, 21)' or item == '(21, 24)' or item == '(25, 28)' or item == '(25, 26)' or item == '(26, 29)' or item == '(26, 27)' or item == '(27, 30)' or item == '(31, 34)' or item == '(31, 32)' or item == '(32, 35)' or item == '(32, 33)' or item == '(33, 36)':
                 for lst in split_choices:
                     for item in lst:
                         if item == random:
-                            counter += 17
+                            total += 17
             elif item == '(1, 2, 3)' or item == '(4, 5, 6)' or item == '(7, 8, 9)' or item == '(10, 11, 12)' or item == '(13, 14, 15)' or item == '(16, 17, 18)' or item == '(19, 20, 21)' or item == '(22, 23, 24)' or item == '(25, 26, 27)' or item == '(28, 29, 30)' or item == '(31, 32, 33)' or item == '(34, 35, 36)':
                 for lst in streen_choices:
                     for item in lst:
                         if item == random:
-                            counter += 11
+                            total += 11
             elif item == '(1, 2, 4, 5)' or item == '(2, 3, 5, 6)' or item == '(4, 5, 7, 8)' or item == '(5, 6, 8, 9)' or item == '(7, 8, 10, 11)' or item == '(8, 9, 11, 12)' or item == '(10, 11, 13, 14)' or item == '(11, 12, 14, 15)' or item == '(13, 14, 16, 17)' or item == '(14, 15, 17, 18)' or item == '(16, 17, 19, 20)' or item == '(17, 18, 20, 21)' or item == '(19, 20, 22, 23)' or item == '(20, 21, 23, 24)' or item == '(22, 23, 25, 26)' or item == '(23, 24, 26, 27)' or item == '(25, 26, 28, 29)' or item == '(26, 27, 29, 30)' or item == '(28, 29, 31, 32)' or item == '(29, 30, 32, 33)' or item == '(31, 32, 34, 35)' or item == '(32, 33, 35, 36)':
                 for lst in corner_choices:
                     for item in lst:
                         if item == random:
-                            counter += 8
+                            total += 8
             elif item == '(1, 2, 3, 4, 5, 6)' or item == '(7, 8, 9, 10, 11, 12)' or item == '(13, 14, 15, 16, 17, 18)' or item == '(19, 20, 21, 22, 23, 24)' or item == '(25, 26, 27, 28, 29, 30)' or item == '(31, 32, 33, 34, 35, 36)':
                 for lst in six_choices:
                     for item in lst:
                         if item == random:
-                            counter += 6
+                            total += 6
+        if total == 0:
+            chip.config(text="I'm sorry, you didn't win anything.")
+            if counter == 0:
+                t = Timer(3.0, master.destroy)
+                t.start
+            else:
+                chip.config(text="Cash out or keep playing?")
+        else:
+            chip.config(text=f"You won {total} chips! Cash out or keep playing?")
         
 
-    t = Timer(10.0, lambda: end_of_bets(number))
+    t = Timer(10.0, lambda: end_of_bets(chip_value))
     t.start()
     master.mainloop()
 
@@ -355,34 +392,31 @@ tkinter.messagebox.showinfo("Welcome to Roulette!",
  1-18, or 19-36, which dozen will win, and which column will win. Good luck, and have fun!")
 
 buy_in_message = Label(buy_in, text="How much are you buying in for?")
-buy_in_message.pack()
-
-def close_window():
-    buy_in.destroy()
+buy_in_message.pack(anchor=N)
 
 buy_in_button1 = Button(buy_in, text="$1")
-buy_in_button1.pack(side=LEFT)
+buy_in_button1.pack(anchor=CENTER)
 buy_in_button10 = Button(buy_in, text="$10")
-buy_in_button10.pack(side=LEFT)
+buy_in_button10.pack(anchor=CENTER)
 buy_in_button100 = Button(buy_in, text="$100")
-buy_in_button100.pack(side=LEFT)
+buy_in_button100.pack(anchor=CENTER)
 buy_in_button1000 = Button(buy_in, text="$1000")
-buy_in_button1000.pack(side=LEFT)
+buy_in_button1000.pack(anchor=CENTER)
 
 def initiate_roulette_with_1(event):
-    close_window()
+    buy_in.destroy()
     game1 = roulette(1)
 
 def initiate_roulette_with_10(event):
-    close_window()
+    buy_in.destroy()
     game2 = roulette(10)
 
 def initiate_roulette_with_100(event):
-    close_window()
+    buy_in.destroy()
     game3 = roulette(100)
 
 def initiate_roulette_with_1000(event):
-    close_window()
+    buy_in.destroy()
     game4 = roulette(1000)
 
 buy_in_button1.bind('<Button-1>', initiate_roulette_with_1)
