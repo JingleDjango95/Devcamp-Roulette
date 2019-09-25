@@ -1,43 +1,3 @@
-# We are building a casino!
-# You are to build one casino game, black jack, slots, roulette, etc, ( these are the ones I have seen built out before.)
-# requirements
-# Build the game.
-# Push individual commits to github.
-# In addition,
-# the player will have a wallet, they can add money to the wallet, any winnings they get will be added to the wallet.
-# If the wallet goes empty they must add more money or they have to stop playing.
-# They need to be able to stop playing and cash out the wallet at anytime. (bonus if the cash out proccess tells them if they made a profit or not)
-# let the player set the dollar/cents amount of the bet (in the game).
-# let them continue playing as long as they have money or decide to cash out.
-
-# 0 and 00 are green
-# 1 - 10 evens are black, odds are red
-# 11 - 18 evens are red, odds are black
-# 19 - 28 evens are black, odds are red
-# 29 - 36 evens are red, odds are black
-
-# rules
-
-# inside bets
-
-# straight bet = 36:1 win
-# split bet = 17:1 win
-# street bet = 11:1 win
-# corner bet = 8:1 win
-# six line bet = 6:1 win
-
-# outside bets
-
-# red = 1:1 win
-# black = 1:1 win
-# even = 1:1 win
-# odd = 1:1 win
-# low bet (1-18) = 1:1 win
-# high bet (19-36) = 1:1 win
-# dozen bet = 2:1 win
-# column bet = 2:1 win
-
-
 from tkinter import *
 import tkinter.messagebox
 from threading import Timer
@@ -372,7 +332,7 @@ def roulette(number):
                 for lst in six_choices:
                     for item in lst:
                         if item == random:
-                            counter += 4
+                            counter += 6
         
 
     t = Timer(10.0, lambda: end_of_bets(number))
@@ -431,58 +391,3 @@ buy_in_button100.bind('<Button-1>', initiate_roulette_with_100)
 buy_in_button1000.bind('<Button-1>', initiate_roulette_with_1000)
 
 buy_in.mainloop()
-
-# def buy_in():
-#     # player inputs buy in amount and is given the chips for it
-#     player_money = input('How much are you buying in today?\n')
-#     x = re.findall("[0-9]", player_money)
-#     player_money = ''.join(x)
-#     player_money = int(player_money)
-#     white = 0
-#     if player_money > 0:
-#         white += 20
-#         player_money /= 20
-#         print(f'You have {white} chips worth ${player_money:0.2f}.')
-#     else:
-#         print("I'm sorry, you don't have enough money.")
-#         exit()
-#     bet_query(white)
-
-# # place bets
-
-# def bet_query(white):
-#     empty = []
-#     bet = input(f'How many chips are you betting?\n')
-#     bet= int(bet)
-#     white = white - bet
-#     empty.append(bet)
-#     bet_place(empty)
-
-# def bet_place(empty):
-#     bet = []
-#     for element in empty:
-#         if element != 0:
-#             bet_placing = input("What's your bet? Inside or outside?\n")
-#             bet_placing = bet_placing.lower()
-#             if bet_placing == 'inside':
-#                 number = input("Which number(s) are you betting on?\n")
-#                 bet.append((number))
-#             elif bet_placing == 'outside':
-#                 outer = input("")
-#             else:
-#                 print("I didn't quite get that. Please try again.")
-#                 bet_place(empty)
-#         else:
-#             cash_out: input("Would you like to cash out?\n")
-#             cash_check()
-
-# def inner_winnings():
-#     pass
-
-# def outer_winnings():
-#     pass
-    
-# def cash_check():
-#     pass
-
-# start()
