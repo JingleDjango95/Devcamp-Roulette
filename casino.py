@@ -23,7 +23,7 @@ def roulette(number):
         global bet
         global counter
         counter -= 1
-        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
+        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f} each.")
         if counter <= 0:
             chip.config(text="You don't have any chips")
         else:
@@ -255,9 +255,9 @@ def roulette(number):
         global counter
         global bet
         counter += total
-        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f}")
+        chip.config(text=f"You have {counter} chips, valued at ${chip_value:0.2f} each.")
         bet = []
-        t = Timer(15.0, lambda: end_of_bets(chip_value))
+        t = Timer(20.0, lambda: end_of_bets(chip_value))
         for button in buttons:
             button.config(state='normal')
         for menu in menus:
@@ -374,14 +374,14 @@ def roulette(number):
             
         
 
-    t = Timer(10.0, lambda: end_of_bets(chip_value))
+    t = Timer(30.0, lambda: end_of_bets(chip_value))
     t.start()
     master.mainloop()
 
 
 buy_in = Tk()
 buy_in.title("Buy In")
-buy_in.geometry('400x200')
+buy_in.geometry('250x150')
 
 tkinter.messagebox.showinfo("Welcome to Roulette!",
 "Welcome to Roulette!, the rules are simple, guess the number \
